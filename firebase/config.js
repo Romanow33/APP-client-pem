@@ -2,12 +2,13 @@ import { initializeApp } from "firebase/app";
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
 const firebaseConfig = {
-    apiKey: "AIzaSyDkCYe0kfg4kRg5YXZvWh2LAJzYWpHXFnc",
-    authDomain: "pembucket.firebaseapp.com",
-    projectId: "pembucket",
-    storageBucket: "pembucket.appspot.com",
-    messagingSenderId: "570930789945",
-    appId: "1:570930789945:web:6e68b5050899aab5e3d7e8"
+    apiKey: "AIzaSyBfmcqNDoj7eHx95P21nfSaIWr-lXDibAs",
+    authDomain: "pem-project-e397a.firebaseapp.com",
+    projectId: "pem-project-e397a",
+    storageBucket: "pem-project-e397a.appspot.com",
+    messagingSenderId: "1049131507807",
+    appId: "1:1049131507807:web:bcfcb45825d23dbfa37bea",
+    measurementId: "G-C93XKYK2LN"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -21,7 +22,6 @@ export async function uploadFile(path, file) {
 }
 
 export async function deleteImage(imageUrl) {
-    
     const storageRef = ref(storage, `${imageUrl}`)
     deleteObject(storageRef).then(() => {
         // File deleted successfully

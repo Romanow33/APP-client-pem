@@ -149,18 +149,30 @@ export async function guestGetImageDB(fileName) {
   return res;
 }
 
-export async function deleteEvent(id) {
-  const res = await axios
-    .delete(`${baseUrl}/events/${id}`, { withCredentials: true })
-    .then((response) => {
-      return response.data;
+export async function deleteEvent(id, eventSelected) {
+  const slidersDeletePromises = []
+  try{
+    eventSelected.eventSlides.map(async (slide) => {
+      slidersDeletePromises.push(await deleteSlider(slide._id))
     })
-    .catch((err) => {
-      console.log(err);
-      return err.response;
-    });
-  return res;
+  }catch(error){
+    console.log(error)
+  }
+  Promise.all(slidersDeletePromises).then(async()=>{
+      const res = await axios
+      .delete(`${baseUrl}/events/${id}`, { withCredentials: true })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err.response;
+      });
+      return res;
+    }
+  )
 }
+
 export async function updateEventDB(id, input) {
   const res = await axios
     .patch(`${baseUrl}/events/${id}`, input, { withCredentials: true })
@@ -203,13 +215,14 @@ export async function updateSlidesImage(id, input) {
   return res;
 }
 
+
 export async function updateEventSlide(id, input) {
   try {
     const { newSlider } = await createSlide(input)
     console.log(newSlider)
     if (newSlider) {
       const res = await axios
-        .patch(`${baseUrl}/events/eventslide/${id}`, { input }, { withCredentials: true })
+        .patch(`${baseUrl}/events/eventslide/${id}`,  {slide: newSlider} , { withCredentials: true })
         .then((response) => {
           const { event } = response.data
           return event;
@@ -218,6 +231,7 @@ export async function updateEventSlide(id, input) {
           console.log(err);
           return err.response;
         });
+        console.log(res)
       return res;
     } else {
       console.log("error")
@@ -255,4 +269,17 @@ export async function getSlideByIdDB(id) {
     });
 
   return res
+}
+
+export async function deleteSlider(id) {
+  const res = await axios
+    .delete(`${baseUrl}/slides/${id}`, { withCredentials: true })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err.response;
+    });
+  return res;
 }

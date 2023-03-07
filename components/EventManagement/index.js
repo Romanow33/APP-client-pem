@@ -12,13 +12,12 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { deleteEvent, getAllEventsDB } from "../../utils/api";
-import AddEventCard from "../AddEventCard";
-import AddEventCardForm from "../AddEventCardForm";
-import { SuccesAlert } from "../Alerts/SuccesAlert";
-import AlertDialogSlide from "../Dialog";
-import EventCard from "../EventCard";
-import DeleteQuest from "./DeleteQuest";
-import { Droppable } from "./Droppable";
+import {AddEventCardForm} from "../AddEventCardForm/index.js";
+import { SuccesAlert } from "../Alerts/SuccesAlert.js";
+import AlertDialogSlide from "../Dialog/index.js";
+import EventCard from "../EventCard/index.js";
+import DeleteQuest from "./DeleteQuest.js";
+import { Droppable } from "./Droppable.js";
 import {
   KeyboardSensor,
   MouseSensor,
@@ -26,14 +25,16 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { AuthContext } from "../../context/auth";
-import MobileCard from "../EventCard/mobileCard";
+import { AuthContext } from "../../context/auth.js";
+import MobileCard from "../EventCard/MobileCard.js";
+import AddEventCard from "../AddEventCard/index.js";
 export const EventManagement = () => {
   const [showForm, setShowForm] = useState(false);
   const [events, setEvents] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [eventId, setEventId] = useState(false);
+  const [eventSelected, setEventSelected] = useState(false);
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openSnakBar, setOpenSnakBar] = useState(false);
@@ -72,7 +73,7 @@ export const EventManagement = () => {
   }
 
   function handleAccept() {
-    const res = deleteEvent(eventId);
+    const res = deleteEvent(eventId,eventSelected);
     if (res) {
       handleSendAlert("Event Delete");
       setOpen(false);
@@ -123,6 +124,10 @@ export const EventManagement = () => {
     if (event.over && event.over.id === "droppable") {
       setAllEvents(events);
       setEventId(event.active.id);
+      const eventToDelete = events.filter((eventCard) => {
+        return eventCard._id === event.active.id;
+      });
+      setEventSelected(eventToDelete[0])
       const newEvents = events.filter((eventCard) => {
         return eventCard._id !== event.active.id;
       });
@@ -130,7 +135,7 @@ export const EventManagement = () => {
       handleClickOpen();
     }
   }
-
+  console.log(eventSelected)
   function handleCancelDrop() {
     setEventId(null);
     setEvents(events);
@@ -182,7 +187,7 @@ export const EventManagement = () => {
           }
         />
 
-        <Grid xs={12} md={2} sx={{ height: "100%", minHeight: { md: "100vh", xs: "auto" }, marginRight: { md: "20px", xs: "0" } }}>
+        <Grid item xs={12} md={2} sx={{ height: "100%", minHeight: { md: "100vh", xs: "auto" }, marginRight: { md: "20px", xs: "0" } }}>
           <AddEventCard
             title="Event Name"
             action={handleShowForm}

@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
 const SlideCard = ({ slide, onEdit, setEvent }) => {
     const router = useRouter();
 
-
     return (
         <Card sx={{ heigth: 50, width: 250, backgroundColor: "#494a71", color: "white", display: "flex", flexDirection: "row", }}>
             <Box sx={{ width: "100%" }}>
@@ -39,7 +38,7 @@ const SlideCard = ({ slide, onEdit, setEvent }) => {
             <CardActions sx={{ flexDirection: "column", justifyContent: "flex-start", alignItems: "center", margin: 0, padding: 0 }}>
                 <IconButton
                     aria-label="settings"
-                    onClick={() => router.push(`/slide/${slide.id}`)}
+                    onClick={() => window.open(`/slide/${slide._id}`, "_blank")}
                     sx={{
                         margin: "0px",
                         border: "1px solid rgba(0, 0, 0, 0.12)",

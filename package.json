@@ -23,7 +23,6 @@
     "cors": "^2.8.5",
     "file-saver": "^2.0.5",
     "firebase": "^9.17.1",
-    "fullscreen-react": "^1.0.5",
     "html2canvas": "^1.4.1",
     "js-file-download": "^0.4.12",
     "jszip": "^3.10.1",
@@ -31,13 +30,12 @@
     "next": "latest",
     "prop-types": "latest",
     "react": "^18.2.0",
-    "react-aws-s3": "^1.5.0",
     "react-dom": "latest",
     "react-dropzone": "^14.2.3",
-    "react-full-screen": "^1.1.1",
     "react-qr-code": "^2.0.11",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
-    "use-react-screenshot": "^3.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

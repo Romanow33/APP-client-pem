@@ -7,8 +7,6 @@ export default function projectionPage() {
   const router = useRouter();
 
   return (
-    <PageTemplate>
       <SlideGallery slideId={router.query.slideId} />
-    </PageTemplate>
   );
 }

@@ -1,7 +1,6 @@
-import { Paper } from "@mui/material";
 import * as React from "react";
-import EventManagement from "../../components/EventManagement";
-import PageTemplate from "../../components/PageTemplate";
+import EventManagement from "../../components/EventManagement/index.js";
+import PageTemplate from "../../components/PageTemplate/index.js";
 
 export default function EventsPage() {
   return (
