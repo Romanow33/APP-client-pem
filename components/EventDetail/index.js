@@ -9,13 +9,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { getEventById } from "../../utils/api";
 import DragAndDrop from "../DragAndDrop";
-import StorefrontIcon from "@mui/icons-material/Storefront";
 import { useRouter } from "next/router";
 import { deleteImage } from "../../firebase/config";
+import saveZip from "../../utils/transformToZip";
 
 
 export const EventDetail = ({ eventId }) => {
@@ -24,6 +23,7 @@ export const EventDetail = ({ eventId }) => {
   const [selection, setSelection] = useState([]);
   const [images, setImages] = useState([]);
   const router = useRouter();
+
   async function getEventDetail() {
     setLoading(true);
     const res = await getEventById(eventId);
@@ -38,8 +38,6 @@ export const EventDetail = ({ eventId }) => {
     setLoading(false);
   }
 
-
-
   useEffect(() => {
     if (eventId) {
       getEventDetail();
@@ -48,12 +46,15 @@ export const EventDetail = ({ eventId }) => {
     return () => setEvent(null);
   }, [eventId]);
 
+  function dowloadFileZip(){
+    saveZip(event.title, event.imagesSrcs)
+  }
 
   if (loading) {
     return <CircularProgress />;
   } else {
     return (
-      <Grid container direction={{ xs: "column", md: "row" }} sx={{ mt: 0, height: "100%", minHeight: "100vh" }}>
+      <Grid container  direction={{ xs: "column", md: "row", sm: "row" }} justifyContent={"space-around"} sx={{ mt: 0, height: "100%", minHeight: "100vh" }}>
         <Typography
           variant="subtitle"
           noWrap
@@ -65,8 +66,9 @@ export const EventDetail = ({ eventId }) => {
             fontSize: "4rem",
             textAlign: "center",
             width: { xs: "100%" },
-            display: { md: "none", xs: "block" }
-
+            display: { md: "none", xs: "block" },
+            height:"50%",
+            color:"white"
           }}
         >
           {event.title}
@@ -92,7 +94,9 @@ export const EventDetail = ({ eventId }) => {
               textDecoration: "none",
               fontSize: "4rem",
               textAlign: "left",
-              display: { xs: "none", md: "inherit" }
+              display: { xs: "none", md: "inherit" },
+              color:"white"
+
             }}
           >
             {event.title}
@@ -115,6 +119,7 @@ export const EventDetail = ({ eventId }) => {
             justifyContent: { md: "flex-start", xs: "center" }
           }}
             fullWidth
+            onClick={dowloadFileZip}
           >
             Dowload Zip
           </Button>
@@ -145,7 +150,7 @@ export const EventDetail = ({ eventId }) => {
             </Button>}
         </Grid>
         <Divider orientation="vertical" flexItem sx={{ borderColor: "black" }} />
-        <Grid item md={9} xs={12} sx={{ ml: 2, mr: 2, backgroundColor: "none", height: { xs: "auto" } }}>
+        <Grid item md={7} xs={12} sx={{ ml: 2, mr: 2, backgroundColor: "none", height: { xs: "auto" } }}>
           <DragAndDrop
             eventId={eventId}
             images={images}

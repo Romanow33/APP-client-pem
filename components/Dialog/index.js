@@ -13,7 +13,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AlertDialogSlide(props) {
   return (
-    <div>
       <Dialog
         open={props.open}
         TransitionComponent={Transition}
@@ -26,13 +25,10 @@ export default function AlertDialogSlide(props) {
       >
         {props.content ? (
           <DialogContent sx={{ padding: "0px", overFlowX: "none" }}>
-            <DialogContentText id="alert-dialog-slide-description">
               {props.content}
-            </DialogContentText>
           </DialogContent>
         ) : null}
 
       </Dialog>
-    </div>
   );
 }

@@ -147,14 +147,14 @@ export default function Login() {
           )}
 
           <PemTextfield
-            margin="normal"
+            margin="dense"
             name="email"
             variant="standard"
             icon={<AlternateEmailIcon />}
             label="Account email"
           />
           <PemTextfield
-            margin="normal"
+            margin="dense"
             name="password"
             variant="standard"
             icon={<PasswordIcon />}

@@ -4,10 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
-  FormControlLabel,
-  IconButton,
-  InputBase,
   MenuItem,
   Select,
   TextField,
@@ -53,16 +49,22 @@ export const AddEventCardForm = ({
   const handleChangeName = (event) => {
     setName(event.target.value);
   };
-
+  console.log(isEdit)
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const input = {
-      title: data.get("name"),
-      type: data.get("type"),
-      eventDate: moment(date).format("MM/DD/YYYY"),
-      author: user._id,
-    };
+    let input = {}
+    if(isEdit){
+      input = Object.assign(isEdit, {title: data.get("name"), type: data.get("type") });
+      console.log(input)
+    }else{
+        input = {
+        title: data.get("name"),
+        type: data.get("type"),
+        eventDate: moment(date).format("MM/DD/YYYY"),
+        author: user._id,
+      };
+    }
 
     if (isEdit) {
       const res = await updateEventDB(isEdit._id, input);
@@ -132,7 +134,7 @@ export const AddEventCardForm = ({
             bottomColor="white"
             label={isEdit ? "" : ""}
             name="name"
-            value={name}
+            value={name || ""}
             onChange={handleChangeName}
           />
           <Typography variant="subtitle" sx={{ textDecoration: "underline", mb: "20px", fontWeight: 200 }}>
@@ -140,11 +142,10 @@ export const AddEventCardForm = ({
           </Typography>
           <Select
             id="type"
-            value={type}
+            value={type || ""}
             fullWidth
             required
             name="type"
-            select
             onChange={handleChangeType}
             sx={{
               mb: "20px",
@@ -210,7 +211,6 @@ export const AddEventCardForm = ({
           >
             Cancel
           </Button>
-
         </Box>
       </CardContent>
     </Card >
