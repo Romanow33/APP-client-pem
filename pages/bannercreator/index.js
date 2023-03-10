@@ -1,15 +1,11 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { createRef, useState } from 'react'
-import { useScreenshot } from 'use-react-screenshot'
 import PageTemplate from '../../components/PageTemplate'
 import { uploadFile } from '../../firebase/config'
 
 function BannerCreator() {
     const screenRef = createRef(null)
-    const [image, takeScreenShot] = useScreenshot({
-        type: "image/jpeg",
-        quality: 1.0,
-    });
+
     const [bannerName, setBannerName] = useState()
     const [nameXposition, setnameXposition] = useState()
     const [nameyposition, setnameYposition] = useState()

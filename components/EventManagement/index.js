@@ -42,7 +42,6 @@ export const EventManagement = () => {
   const [snakMensage, setSnakMensagge] = useState("");
   const { user } = useContext(AuthContext);
   const matches = useMediaQuery('(min-width:900px)');
-
   const mouseSensor = useSensor(PointerSensor, {
     activationConstraint: {
       delay: 100,
@@ -135,7 +134,6 @@ export const EventManagement = () => {
       handleClickOpen();
     }
   }
-  console.log(eventSelected)
   function handleCancelDrop() {
     setEventId(null);
     setEvents(events);
@@ -153,6 +151,7 @@ export const EventManagement = () => {
       setLoading(true);
     }
   }, [user.uid]);
+
   if (loading || !events) {
     return <CircularProgress />;
   }
@@ -223,12 +222,13 @@ export const EventManagement = () => {
             </Typography>
           </Box>
         }
-        <Grid md={9}>
+        <Grid item md={9}>
           <Stack direction="row" justifyContent={{ md: "flex-start", xs: "center" }} alignItems="flex-start" flexWrap="wrap" rowGap={2} columnGap={1}>
             {events.length > 0 && events?.map((event) => {
               if (matches) {
                 return (
                   <EventCard
+                    key={event._id}
                     event={event}
                     onEdit={handleShowEditForm}
                     setEvent={setEventToEdit}
@@ -237,6 +237,7 @@ export const EventManagement = () => {
               } else {
                 return (
                   <MobileCard
+                    key={event._id}
                     event={event}
                     onEdit={handleShowEditForm}
                     setEvent={setEventToEdit}

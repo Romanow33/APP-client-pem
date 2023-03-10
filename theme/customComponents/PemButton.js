@@ -17,8 +17,8 @@ function PemButton({ label, ...props }) {
             ":hover": {
                 transform: "scale(1.02 ,  1.02 )",
                 boxShadow: "-2px 9px 49px -25px rgba(0,0,0,0.72)",
-                "-webkit-box-shadow": "-2px 9px 49px -25px rgba(0,0,0,0.72)",
-                "-moz-box-shadow": "-2px 9px 49px -25px rgba(0,0,0,0.72)",
+                "WebkitBoxShadow":"-2px 9px 49px -25px rgba(0,0,0,0.72)",
+                "MozBoxShadow": "-2px 9px 49px -25px rgba(0,0,0,0.72)",
 
             }
         }}>
