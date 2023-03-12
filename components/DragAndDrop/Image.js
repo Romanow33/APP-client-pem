@@ -1,6 +1,6 @@
 import { Checkbox, ImageListItem } from "@mui/material";
 import React from "react";
-function Image({ image, isSelectionable, setSelection }) {
+function Image({ image, isSelectionable, setSelection, selection }) {
   return (
     <ImageListItem key={image} sx={{ p: 1 }}>
       {isSelectionable && (
@@ -8,7 +8,10 @@ function Image({ image, isSelectionable, setSelection }) {
           sx={{ position: "absolute", right: "0" }}
           onClick={(e) => {
             e.stopPropagation();
-            setSelection((state) => [...state, image]);
+            console.log(selection)
+            let res = ""
+            if (selection && selection.length != 0) res = selection?.filter((selectedImage) => selectedImage != image)
+            setSelection(res);
           }}
         />
       )}

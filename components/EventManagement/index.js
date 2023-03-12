@@ -58,7 +58,6 @@ export const EventManagement = () => {
   const sensors = useSensors(mouseSensor, touchSensor);
 
 
-
   async function getAllEvents() {
     setLoading(true);
     const res = await getAllEventsDB(user.uid);

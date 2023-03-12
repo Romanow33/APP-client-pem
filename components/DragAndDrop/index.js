@@ -12,6 +12,7 @@ function DragAndDrop({
   isSelectionable,
   setSelection,
   path,
+  selection,
   isModal
 }) {
   const onDrop = useCallback((acceptedFiles) => {
@@ -81,7 +82,7 @@ function DragAndDrop({
                         image={image}
                         key={image}
                         isSelectionable={isSelectionable}
-                        setSelection={setSelection}
+                        selection={selection}
                       />
                     );
                   })}

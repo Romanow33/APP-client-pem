@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getEventById } from "../../utils/api";
+import { getEventById, updateEventDB } from "../../utils/api";
 import DragAndDrop from "../DragAndDrop";
 import { useRouter } from "next/router";
 import { deleteImage } from "../../firebase/config";
@@ -37,24 +37,46 @@ export const EventDetail = ({ eventId }) => {
     }
     setLoading(false);
   }
+  /*   const input = {
+      title: data.get("name"),
+      type: data.get("type"),
+      eventDate: moment(date).format("MM/DD/YYYY"),
+      author: user._id,
+    }; */
+  function deleteAlImages(params) {
+    const array1 = event.imagesSrcs
+    const array2 = params
 
+    /* const result = newUsers.filter(e => !likedUsers.some(a => a.id == e.id));
+    console.log(result) */
+    //const duplicates = array1.filter(value => array2.some(oneElement => oneElement === value));
+    //const duplicatesId = array1.filter(value => array2.some(oneElement => oneElement.id === value.id)).map(oneElement => oneElement.id);
+
+ /*    const mergedArray = [
+      ...array1,
+      ...array2.filter(value => !duplicatesId.some(oneDuplicate => oneDuplicate === value.id))
+    ]; */
+    /*  ({ ...params, imagesSrcs:  }) */
+    //updateEventDB
+    //deleteImage(selection[0])
+    console.log(array2 +"aaaaaaaa a");
+  }
+  console.log(selection)
   useEffect(() => {
     if (eventId) {
       getEventDetail();
-
     }
     return () => setEvent(null);
   }, [eventId]);
 
-  function dowloadFileZip(){
+  function dowloadFileZip() {
     saveZip(event.title, event.imagesSrcs)
   }
-
   if (loading) {
     return <CircularProgress />;
   } else {
     return (
-      <Grid container  direction={{ xs: "column", md: "row", sm: "row" }} justifyContent={"space-around"} sx={{ mt: 0, height: "100%", minHeight: "100vh" }}>
+      <Grid container direction={{ xs: "column", md: "row", sm: "row" }} justifyContent={"space-around"} sx={{ mt: 0, height: "100%", minHeight: "100vh" }}>
         <Typography
           variant="subtitle"
           noWrap
@@ -67,8 +89,8 @@ export const EventDetail = ({ eventId }) => {
             textAlign: "center",
             width: { xs: "100%" },
             display: { md: "none", xs: "block" },
-            height:"50%",
-            color:"white"
+            height: "50%",
+            color: "white"
           }}
         >
           {event.title}
@@ -95,7 +117,7 @@ export const EventDetail = ({ eventId }) => {
               fontSize: "4rem",
               textAlign: "left",
               display: { xs: "none", md: "inherit" },
-              color:"white"
+              color: "white"
 
             }}
           >
@@ -140,7 +162,7 @@ export const EventDetail = ({ eventId }) => {
 
           {selection.length !== 0 &&
             <Button
-              onClick={() => deleteImage(selection[0])}
+              onClick={() => deleteAlImages(selection)}
               sx={{
                 justifyContent: "flex-start"
               }}
@@ -156,6 +178,7 @@ export const EventDetail = ({ eventId }) => {
             images={images}
             setImages={setImages}
             setSelection={setSelection}
+            selection={selection}
             isSelectionable
             path="eventImages"
           />

@@ -219,7 +219,6 @@ export async function updateSlidesImage(id, input) {
 export async function updateEventSlide(id, input) {
   try {
     const { newSlider } = await createSlide(input)
-    console.log(newSlider)
     if (newSlider) {
       const res = await axios
         .patch(`${baseUrl}/events/eventslide/${id}`,  {slide: newSlider} , { withCredentials: true })
